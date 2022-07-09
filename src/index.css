@@ -1,0 +1,20 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Microsoft JhengHei', 'PingFang TC', 'Arial', 'Helvetica',
+    sans-serif;
+}
+
+img {
+  vertical-align: middle;
+}

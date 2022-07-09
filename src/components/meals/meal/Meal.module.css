@@ -1,0 +1,44 @@
+.meal {
+  display: grid;
+  grid-template-columns: 200rem 1fr;
+  align-items: center;
+  padding: 30rem 20rem;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.meal__imgBox {
+  width: 200rem;
+}
+
+.meal__imgBox img {
+  width: 100%;
+}
+
+.meal__title {
+  font-weight: normal;
+  font-size: 18px;
+  margin: 0;
+}
+
+.meal__desc {
+  padding-right: 40rem;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.meal__priceBox {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rem;
+  padding-right: 40rem;
+}
+
+.meal__price {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.meal__price::before {
+  content: '$';
+  font-size: 12px;
+}
