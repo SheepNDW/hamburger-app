@@ -16,14 +16,14 @@
 
 .meal__title {
   font-weight: normal;
-  font-size: 18px;
+  font-size: 36rem;
   margin: 0;
 }
 
 .meal__desc {
   padding-right: 40rem;
   color: #aaa;
-  font-size: 12px;
+  font-size: 24rem;
 }
 
 .meal__priceBox {
@@ -35,10 +35,10 @@
 
 .meal__price {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 36rem;
 }
 
 .meal__price::before {
   content: '$';
-  font-size: 12px;
+  font-size: 24rem;
 }

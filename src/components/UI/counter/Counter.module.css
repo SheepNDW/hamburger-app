@@ -10,7 +10,7 @@
   width: 36rem;
   height: 36rem;
   border-radius: 50%;
-  font-size: 14px;
+  font-size: 28rem;
 
   display: flex;
   align-items: center;
@@ -23,6 +23,6 @@
 }
 
 .count {
-  font-size: 16px;
+  font-size: 32rem;
   margin: 0 5px;
 }
