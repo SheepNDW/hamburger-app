@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Meals from './components/meals/Meals';
+import FilteredMeals from './components/filteredMeals/FilteredMeals';
+
 import CartContext from './store/cartContext';
 
 // 模擬一組食物資料
@@ -27,22 +29,22 @@ const MEALS_DATA = [
   },
   {
     id: '4',
-    title: '勁辣鷄腿堡',
-    desc: '整塊勁辣鷄腿排，未吃份量先得分。滿滿生菜搭配特製美乃滋，口感豐富多層次。',
+    title: '勁辣雞腿堡',
+    desc: '整塊勁辣雞腿排，未吃份量先得分。滿滿生菜搭配特製美乃滋，口感豐富多層次。',
     price: 75,
     img: '/src/assets/images/4.png',
   },
   {
     id: '5',
-    title: '板烤鷄腿堡',
-    desc: '獨特的BBQ風味醬，搭配多汁去骨鷄腿肉，以慢火嫩煎入味，意料之外的絕配。',
+    title: '板烤雞腿堡',
+    desc: '獨特的BBQ風味醬，搭配多汁去骨雞腿肉，以慢火嫩煎入味，意料之外的絕配。',
     price: 89,
     img: '/src/assets/images/5.png',
   },
   {
     id: '6',
     title: '麥香雞',
-    desc: '清脆爽口新鮮生菜，優質麥香鷄排，淋上特製醬料，通通夾進芝麻麵包，熟悉的經典美味。',
+    desc: '清脆爽口新鮮生菜，優質麥香雞排，淋上特製醬料，通通夾進芝麻麵包，熟悉的經典美味。',
     price: 45,
     img: '/src/assets/images/6.png',
   },
@@ -56,13 +58,20 @@ const MEALS_DATA = [
 ];
 
 function App() {
-  const [mealsData] = useState(MEALS_DATA);
+  const [mealsData, setMealsData] = useState(MEALS_DATA);
 
   const [cartData, setCartData] = useState({
     items: [],
     totalAmount: 0,
     totalPrice: 0,
   });
+
+  const getFilteredMeals = (keyword) => {
+    const newMealsData = MEALS_DATA.filter(
+      (item) => item.title.indexOf(keyword) !== -1
+    );
+    setMealsData(newMealsData);
+  };
 
   /**
    * 向購物車中新增品項
@@ -111,6 +120,7 @@ function App() {
   return (
     <CartContext.Provider value={{ ...cartData, addItem, removeItem }}>
       <div>
+        <FilteredMeals onFilter={getFilteredMeals} />
         <Meals mealsData={mealsData} />
       </div>
     </CartContext.Provider>
