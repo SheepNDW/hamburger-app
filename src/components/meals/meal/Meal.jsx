@@ -13,7 +13,9 @@ const Meal = (props) => {
       </div>
       <div>
         <h2 className={classes.meal__title}>{props.meal.title}</h2>
-        <p className={classes.meal__desc}>{props.meal.desc}</p>
+        {props.noDesc ? null : (
+          <p className={classes.meal__desc}>{props.meal.desc}</p>
+        )}
         <div className={classes.meal__priceBox}>
           <span className={classes.meal__price}>{props.meal.price}</span>
           <Counter meal={props.meal} />

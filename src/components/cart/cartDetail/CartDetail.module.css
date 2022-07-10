@@ -1,0 +1,37 @@
+.cartDetails {
+  position: absolute;
+  bottom: 0;
+  width: 750rem;
+  max-height: 1200rem;
+  padding-bottom: 120rem;
+  background-color: #fff;
+  border-top-left-radius: 40rem;
+  border-top-right-radius: 40rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rem;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 28rem;
+}
+
+.clear {
+  color: #aaa;
+  font-size: 24rem;
+}
+
+.clear span {
+  margin-left: 10rem;
+}
+
+.mealList {
+  overflow: auto;
+}
