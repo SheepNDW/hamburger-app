@@ -4,19 +4,33 @@ import iconImg from '../../assets/bag.png';
 
 import CartContext from '../../store/cartContext';
 import CartDetail from './cartDetail/CartDetail';
+import Checkout from './checkout/Checkout';
 
 const Cart = () => {
   const ctx = useContext(CartContext);
 
   const [showDetails, setShowDetails] = useState(false);
 
+  const [showCheckout, setShowCheckout] = useState(false);
+
   const toggleDetails = () => {
-    if (ctx.totalAmount === 0 && showDetails === false) return;
+    if (ctx.totalAmount === 0) return setShowDetails(false);
     setShowDetails(!showDetails);
+  };
+
+  const handleShowCheckout = () => {
+    if (ctx.totalAmount === 0) return;
+    setShowCheckout(true);
+  };
+
+  const handleHideCheckout = () => {
+    setShowCheckout(false);
   };
 
   return (
     <div className={classes.cart} onClick={toggleDetails}>
+      {showCheckout && <Checkout onHide={handleHideCheckout} />}
+
       {/* 購物車詳情 */}
       {showDetails && <CartDetail closeDetail={toggleDetails} />}
 
@@ -34,6 +48,7 @@ const Cart = () => {
       )}
 
       <button
+        onClick={handleShowCheckout}
         className={`${classes.cart__button} ${
           ctx.totalAmount === 0 ? classes.disabled : ''
         }`}

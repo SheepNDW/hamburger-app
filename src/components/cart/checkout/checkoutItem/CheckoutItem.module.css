@@ -1,0 +1,40 @@
+.checkoutItem {
+  display: flex;
+}
+
+.mealImg {
+  width: 140rem;
+}
+
+.mealImg img {
+  width: 100%;
+}
+
+.desc {
+  flex: auto;
+  margin-left: 20rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.title {
+  font-size: 24rem;
+}
+
+.priceOuter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  font-size: 26rem;
+  font-weight: bold;
+}
+
+.price::before {
+  content: '$';
+  font-weight: normal;
+  font-size: 20rem;
+}
