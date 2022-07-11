@@ -109,7 +109,7 @@ function App() {
 
     // 檢查是否歸 0
     if (meal.amount === 0) {
-      newCart.items.splice(newCart.items.indexOf(meal, 1));
+      newCart.items.splice(newCart.items.indexOf(meal), 1);
     }
 
     newCart.totalAmount -= 1;
@@ -118,8 +118,21 @@ function App() {
     setCartData(newCart);
   };
 
+  const clearCart = () => {
+    const newCart = { ...cartData };
+    // 將購物車中品項的數量清零
+    newCart.items.forEach((item) => delete item.amount);
+    newCart.items = [];
+    newCart.totalAmount = 0;
+    newCart.totalPrice = 0;
+
+    setCartData(newCart);
+  };
+
   return (
-    <CartContext.Provider value={{ ...cartData, addItem, removeItem }}>
+    <CartContext.Provider
+      value={{ ...cartData, addItem, removeItem, clearCart }}
+    >
       <div>
         <FilteredMeals onFilter={getFilteredMeals} />
         <Meals mealsData={mealsData} />

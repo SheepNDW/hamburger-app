@@ -11,14 +11,14 @@ const Cart = () => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
-    if (ctx.totalAmount === 0) return;
-    setShowDetails((prevState) => !prevState);
+    if (ctx.totalAmount === 0 && showDetails === false) return;
+    setShowDetails(!showDetails);
   };
 
   return (
     <div className={classes.cart} onClick={toggleDetails}>
       {/* 購物車詳情 */}
-      {showDetails && <CartDetail />}
+      {showDetails && <CartDetail closeDetail={toggleDetails} />}
 
       <div className={classes.cart__icon}>
         <img src={iconImg} alt="cart icon" />
