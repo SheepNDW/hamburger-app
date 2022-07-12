@@ -12,6 +12,7 @@
 .close {
   color: #000;
   font-size: 36rem;
+  margin-bottom: 10rem;
 }
 
 .checkoutBox {
@@ -29,7 +30,7 @@
 }
 
 .mealList {
-  max-height: 900rem;
+  max-height: 800rem;
   overflow: auto;
 }
 

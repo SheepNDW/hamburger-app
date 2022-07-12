@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import CartContext from '../../../store/cartContext';
 import CheckoutItem from './checkoutItem/CheckoutItem';
+import CheckoutBar from './checkoutBar/CheckoutBar';
 
 const checkRoot = document.getElementById('checkout-root');
 
@@ -30,6 +31,8 @@ const Checkout = (props) => {
           <p className={classes.totalPrice}>{ctx.totalPrice}</p>
         </footer>
       </div>
+
+      <CheckoutBar totalPrice={ctx.totalPrice} />
     </div>,
     checkRoot
   );
