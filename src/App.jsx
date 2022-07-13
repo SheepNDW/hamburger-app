@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import Meals from './components/meals/Meals';
 import FilteredMeals from './components/filteredMeals/FilteredMeals';
 import Cart from './components/cart/Cart';
@@ -58,10 +58,54 @@ const MEALS_DATA = [
   },
 ];
 
+const cartReducer = (prevState, action) => {
+  const newCart = { ...prevState };
+
+  switch (action.type) {
+    case 'addCart':
+      // 判斷目前購物車裡是否存在相同品項
+      if (newCart.items.indexOf(action.meal) === -1) {
+        // 新增至購物車中
+        newCart.items.push(action.meal);
+        action.meal.amount = 1;
+      } else {
+        // 數量增加
+        action.meal.amount += 1;
+      }
+      newCart.totalAmount += 1;
+      newCart.totalPrice += action.meal.price;
+      return newCart;
+
+    case 'removeCart':
+      // 減少品項數量
+      action.meal.amount -= 1;
+      // 檢查是否歸 0
+      if (action.meal.amount === 0) {
+        newCart.items.splice(newCart.items.indexOf(action.meal), 1);
+      }
+
+      newCart.totalAmount -= 1;
+      newCart.totalPrice -= action.meal.price;
+      return newCart;
+
+    case 'clearCart':
+      // 將購物車中品項的數量清零
+      newCart.items.forEach((item) => delete item.amount);
+      newCart.items = [];
+      newCart.totalAmount = 0;
+      newCart.totalPrice = 0;
+      return newCart;
+
+    default:
+      return prevState;
+  }
+};
+
 function App() {
   const [mealsData, setMealsData] = useState(MEALS_DATA);
 
-  const [cartData, setCartData] = useState({
+  // 將 cartData 改寫成 useReducer
+  const [cartData, cartDispatch] = useReducer(cartReducer, {
     items: [],
     totalAmount: 0,
     totalPrice: 0,
@@ -74,65 +118,8 @@ function App() {
     setMealsData(newMealsData);
   };
 
-  /**
-   * 向購物車中新增品項
-   * @param {Object} meal - 要添加的食物品項
-   */
-  const addItem = (meal) => {
-    const newCart = { ...cartData };
-
-    // 判斷目前購物車裡是否存在相同品項
-    if (newCart.items.indexOf(meal) === -1) {
-      // 新增至購物車中
-      newCart.items.push(meal);
-      meal.amount = 1;
-    } else {
-      // 數量增加
-      meal.amount += 1;
-    }
-
-    newCart.totalAmount += 1;
-    newCart.totalPrice += meal.price;
-
-    setCartData(newCart);
-  };
-
-  /**
-   * 減少購物車中品項數量
-   * @param {Object} meal - 要減少的食物品項
-   */
-  const removeItem = (meal) => {
-    const newCart = { ...cartData };
-
-    // 減少品項數量
-    meal.amount -= 1;
-
-    // 檢查是否歸 0
-    if (meal.amount === 0) {
-      newCart.items.splice(newCart.items.indexOf(meal), 1);
-    }
-
-    newCart.totalAmount -= 1;
-    newCart.totalPrice -= meal.price;
-
-    setCartData(newCart);
-  };
-
-  const clearCart = () => {
-    const newCart = { ...cartData };
-    // 將購物車中品項的數量清零
-    newCart.items.forEach((item) => delete item.amount);
-    newCart.items = [];
-    newCart.totalAmount = 0;
-    newCart.totalPrice = 0;
-
-    setCartData(newCart);
-  };
-
   return (
-    <CartContext.Provider
-      value={{ ...cartData, addItem, removeItem, clearCart }}
-    >
+    <CartContext.Provider value={{ ...cartData, cartDispatch }}>
       <div>
         <FilteredMeals onFilter={getFilteredMeals} />
         <Meals mealsData={mealsData} />

@@ -8,11 +8,17 @@ const Counter = (props) => {
   const ctx = useContext(CartContext);
 
   const addToCart = () => {
-    ctx.addItem(props.meal);
+    ctx.cartDispatch({
+      type: 'addCart',
+      meal: props.meal,
+    });
   };
 
   const subFromCart = () => {
-    ctx.removeItem(props.meal);
+    ctx.cartDispatch({
+      type: 'removeCart',
+      meal: props.meal,
+    });
   };
 
   return (

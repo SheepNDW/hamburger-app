@@ -23,8 +23,7 @@ const CartDetail = () => {
   };
 
   const handleOk = () => {
-    ctx.clearCart();
-    setShowConfirm(false);
+    ctx.cartDispatch({ type: 'clearCart' });
   };
 
   return (
