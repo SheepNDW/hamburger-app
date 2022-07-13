@@ -17,6 +17,10 @@
     - [x] 明細
     - [x] 底下操作條
 
+優化升級
+- [x] 使用 useEffect 處理當購物車沒有商品時的狀態
+- [x] 使用 useReducer 來把 cartData 和增刪邏輯整合在一起
+
 ## 使用技術
 
 * React 18 + Vite 搭建環境
