@@ -8,7 +8,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import CartContext from '../../../store/cartContext';
 import Confirm from '../../UI/confirm/Confirm';
 
-const CartDetail = (props) => {
+const CartDetail = () => {
   const ctx = useContext(CartContext);
 
   const [showConfirm, setShowConfirm] = useState(false);
@@ -25,7 +25,6 @@ const CartDetail = (props) => {
   const handleOk = () => {
     ctx.clearCart();
     setShowConfirm(false);
-    props.closeDetail();
   };
 
   return (

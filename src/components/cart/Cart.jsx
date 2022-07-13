@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classes from './Cart.module.css';
 import iconImg from '../../assets/bag.png';
 
@@ -10,8 +10,23 @@ const Cart = () => {
   const ctx = useContext(CartContext);
 
   const [showDetails, setShowDetails] = useState(false);
-
   const [showCheckout, setShowCheckout] = useState(false);
+
+  /*
+   * 在元件每次重新渲染時, 檢查一下購物車中餐點的總數, 如果數量為零, 則修改 showDetails 為 false
+   * 元件每次重新渲染, 元件的函式就會執行, 所以下方程式碼會造成 Uncaught Error: Too many re-renders.
+   * if (ctx.totalAmount === 0) {
+   *   setShowDetails(false);
+   * }
+   * 應該將邏輯寫入 useEffect
+   */
+  useEffect(() => {
+    if (ctx.totalAmount === 0) {
+      // 購物車被清空時
+      setShowDetails(false);
+      setShowCheckout(false);
+    }
+  }, [ctx]);
 
   const toggleDetails = () => {
     if (ctx.totalAmount === 0) return setShowDetails(false);
@@ -32,7 +47,7 @@ const Cart = () => {
       {showCheckout && <Checkout onHide={handleHideCheckout} />}
 
       {/* 購物車詳情 */}
-      {showDetails && <CartDetail closeDetail={toggleDetails} />}
+      {showDetails && <CartDetail />}
 
       <div className={classes.cart__icon}>
         <img src={iconImg} alt="cart icon" />
